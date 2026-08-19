@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>하나투빔프로젝터 | 신품·미개봉·중고 빔프로젝터 전문</title>
+<meta name="description" content="신품, 미개봉, 중고빔프로젝터, 엣지블랜딩, 맵핑, 판매, 매입, 수리, 설치전문">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #170f21;
+    --surface: #241735;
+    --surface-2: #2e1d45;
+    --line: #3c2a57;
+    --gold: #ffd873;
+    --gold-dim: #c9a655;
+    --text: #f1eafe;
+    --text-dim: #b8a9cc;
+    --purple-accent: #8b5fd9;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Noto Sans KR', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{font-family:'Black Han Sans', sans-serif; letter-spacing:.5px;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(23,15,33,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:68px;}
+  .brand{font-size:22px; color:var(--gold);}
+  .brand span{color:var(--text);}
+  .navlinks{display:flex; gap:28px; font-weight:500; font-size:15px;}
+  .navlinks a{color:var(--text-dim); transition:color .2s;}
+  .navlinks a:hover{color:var(--gold);}
+  .navlinks a.cta{
+    background:var(--gold); color:#1a1024; padding:8px 18px; border-radius:999px; font-weight:700;
+  }
+  .navlinks a.cta:hover{color:#1a1024; opacity:.9;}
+  .menu-btn{display:none; background:none; border:none; color:var(--text); font-size:26px; cursor:pointer;}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 72px;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(139,95,217,.25), transparent 45%),
+      radial-gradient(circle at 85% 0%, rgba(255,216,115,.10), transparent 40%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    color:var(--gold); font-weight:700; font-size:13px; letter-spacing:2px; text-transform:uppercase;
+  }
+  .hero h1{font-size:44px; line-height:1.3; margin:14px 0 18px; max-width:640px;}
+  .hero h1 em{color:var(--gold); font-style:normal;}
+  .hero p{color:var(--text-dim); max-width:520px; font-size:16px; margin-bottom:32px;}
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+
+  .link-icons{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;}
+  .link-chip{
+    display:flex; align-items:center; gap:8px;
+    background:var(--surface); border:1px solid var(--line);
+    padding:7px 14px 7px 7px; border-radius:999px;
+    font-size:13px; font-weight:600; color:var(--text-dim);
+    transition:all .15s;
+  }
+  .link-chip:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px);}
+  .link-ico{
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex:0 0 auto;
+  }
+  .ico-site1{background:linear-gradient(135deg, var(--gold), #ffb84d);}
+  .ico-site2{background:linear-gradient(135deg, #b8a9cc, #8b5fd9);}
+  .ico-site3{background:linear-gradient(135deg, #ff9ecb, #8b5fd9);}
+  .ico-blog{background:#03c75a;}
+  .ico-insta{background:radial-gradient(circle at 30% 110%, #ffdb73 0%, #fd5949 30%, #d6249f 55%, #285AEB 90%);}
+  .ico-yt{background:#ff0000;}
+  .ico-fb{background:#1877f2;}
+  .ico-auction{background:linear-gradient(135deg, #ff5722, #e4002b);}
+  .ico-11st{background:#ff0038; font-size:10px; font-weight:900; color:#fff;}
+  .ico-coupang{background:#0073e9;}
+  .btn{
+    display:inline-block; padding:14px 26px; border-radius:10px; font-weight:700; font-size:15px;
+    transition:transform .15s, opacity .15s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--gold); color:#1a1024;}
+  .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* SECTION HEADER */
+  section{padding:76px 0;}
+  .sec-head{margin-bottom:40px;}
+  .sec-head .eyebrow{color:var(--gold-dim); font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase;}
+  .sec-head h2{font-size:30px; margin-top:8px;}
+  .sec-head p{color:var(--text-dim); margin-top:10px; max-width:560px;}
+
+  /* ABOUT */
+  #about{border-bottom:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+  .about-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px;
+  }
+  .about-card ul{list-style:none;}
+  .about-card li{
+    padding:12px 0; border-bottom:1px solid var(--line); color:var(--text-dim); font-size:14px;
+    display:flex; justify-content:space-between;
+  }
+  .about-card li:last-child{border-bottom:none;}
+  .about-card li span:last-child{color:var(--text); font-weight:700;}
+
+  /* PRODUCTS */
+  #products{border-bottom:1px solid var(--line);}
+  .filter-tabs{display:flex; gap:10px; margin-bottom:32px; flex-wrap:wrap;}
+  .filter-tabs button{
+    background:var(--surface); border:1px solid var(--line); color:var(--text-dim);
+    padding:9px 18px; border-radius:999px; font-size:14px; font-weight:500; cursor:pointer;
+    font-family:'Noto Sans KR', sans-serif;
+    transition:all .15s;
+  }
+  .filter-tabs button.active, .filter-tabs button:hover{
+    background:var(--gold); color:#1a1024; border-color:var(--gold);
+  }
+  .product-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; transition:border-color .2s, transform .2s;
+  }
+  .card:hover{border-color:var(--purple-accent); transform:translateY(-4px);}
+  .card-img{
+    aspect-ratio:4/3; background:linear-gradient(145deg, var(--surface-2), var(--surface));
+    display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:13px;
+    border-bottom:1px solid var(--line);
+  }
+  .card-body{padding:18px;}
+  .card-tag{
+    display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px;
+    background:rgba(255,216,115,.12); color:var(--gold); margin-bottom:10px;
+  }
+  .card-body h3{font-size:17px; font-family:'Noto Sans KR', sans-serif; font-weight:700; margin-bottom:6px;}
+  .card-body .price{color:var(--gold); font-weight:900; font-size:19px; margin:8px 0 12px;}
+  .card-body .spec{color:var(--text-dim); font-size:13px; margin-bottom:2px;}
+  .card-body .buy{
+    display:block; text-align:center; margin-top:14px; padding:10px; border-radius:8px;
+    border:1px solid var(--line); color:var(--text); font-size:14px; font-weight:700;
+  }
+  .card-body .buy:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* CONTACT */
+  #contact{border-bottom:1px solid var(--line);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .contact-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:28px;
+  }
+  .contact-box h3{font-size:18px; font-family:'Noto Sans KR', sans-serif; font-weight:700; margin-bottom:6px;}
+  .contact-box p{color:var(--text-dim); font-size:14px; margin-bottom:20px;}
+  .quick-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .quick-row a{
+    flex:1; min-width:100px; text-align:center; padding:14px 10px; border-radius:10px;
+    background:var(--surface-2); border:1px solid var(--line); font-size:13px; font-weight:700;
+  }
+  .quick-row a:hover{border-color:var(--gold); color:var(--gold);}
+  .copy-field{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px; cursor:pointer; margin-top:14px; transition:border-color .15s;
+  }
+  .copy-field:hover{border-color:var(--gold);}
+  .copy-field .label{font-size:12px; color:var(--text-dim);}
+  .copy-field .value{font-size:16px; font-weight:700; color:var(--text); margin-top:2px;}
+  .copy-field .icon{color:var(--gold-dim); font-size:13px;}
+  .form-embed{
+    background:var(--surface-2); border:1px dashed var(--line); border-radius:10px;
+    padding:32px 20px; text-align:center; color:var(--text-dim); font-size:14px;
+  }
+  .form-embed .btn{margin-top:16px;}
+
+  /* MAP */
+  #location{padding-bottom:76px;}
+  .map-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  .map-box .info div{color:var(--text-dim); font-size:14px; margin-bottom:6px;}
+  .map-box .info div span{color:var(--text); font-weight:700; margin-right:6px;}
+
+  /* TOAST */
+  #toast{
+    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--gold); color:#1a1024; font-weight:700; font-size:14px;
+    padding:13px 24px; border-radius:999px; opacity:0; pointer-events:none;
+    transition:opacity .25s, transform .25s; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  footer{
+    padding:36px 0; text-align:center; color:var(--text-dim); font-size:13px;
+  }
+  footer strong{color:var(--text);}
+
+  @media (max-width: 860px){
+    .navlinks{position:fixed; top:68px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--line);
+      flex-direction:column; padding:20px 24px; gap:18px; display:none;}
+    .navlinks.open{display:flex;}
+    .menu-btn{display:block;}
+    .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(2, 1fr);}
+    .hero h1{font-size:32px;}
+    .map-box{flex-direction:column; align-items:flex-start;}
+  }
+  @media (max-width: 520px){
+    .product-grid{grid-template-columns:1fr;}
+    .link-icons{gap:12px 10px;}
+    .link-chip{
+      padding:9px 16px 9px 9px; font-size:14px; min-height:44px;
+      flex:0 0 calc(50% - 6px); justify-content:center;
+    }
+    .link-ico{width:30px; height:30px; font-size:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">하나투<span>빔프로젝터</span></a>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">업체소개</a>
+      <a href="products.html">판매제품</a>
+      <a href="#contact">문의하기</a>
+      <a href="#location">오시는길</a>
+      <a href="https://smartstore.naver.com/hana2" target="_blank" rel="noopener">🛒 스마트스토어</a>
+      <a href="#contact" class="cta">전화상담</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">신품 · 미개봉 · 중고 빔프로젝터 전문</div>
+    <h1>판매부터 설치까지,<br><em>믿고 맡기는</em> 빔프로젝터 전문점</h1>
+    <p>신품, 미개봉, 중고 빔프로젝터 판매·매입은 물론 엣지블랜딩, 맵핑, 수리, 설치까지 한번에 상담해 드립니다.</p>
+    <div class="hero-cta">
+      <a href="products.html" class="btn btn-primary">판매제품 보기</a>
+      <a href="#contact" class="btn btn-ghost">문의하기</a>
+      <a href="https://smartstore.naver.com/hana2" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:#03c75a; color:#03c75a;">🛒 네이버 스마트스토어</a>
+    </div>
+
+    <div class="link-icons">
+      <a href="https://hana2pj.netlify.app/" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-site1">🏠</span><span>1번_홈피</span>
+      </a>
+      <a href="https://hanabimpr.itpage.kr/" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-site2">📄</span><span>2번_홈피</span>
+      </a>
+      <a href="https://hana2pj.kr/" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-site3">✨</span><span>3번_홈피</span>
+      </a>
+      <a href="https://blog.naver.com/wkddudwls21" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-blog">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M4 3h7.5L18 8.2V21H4V3zm7 1.5V9h4.7L11 4.5zM8 12h8v1.6H8V12zm0 3.2h8v1.6H8v-1.6z"/></svg>
+        </span><span>블로그</span>
+      </a>
+      <a href="https://www.instagram.com/hana2pj" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-insta">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.85 1.02 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76 4.9 4.9 0 01-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 015.44 2.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-9.4a1.17 1.17 0 100 2.34 1.17 1.17 0 000-2.34z"/></svg>
+        </span><span>인스타그램</span>
+      </a>
+      <a href="https://www.youtube.com/@hana2pj" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-yt">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M22 12s0-3.2-.4-4.7a2.9 2.9 0 00-2-2C17.9 5 12 5 12 5s-5.9 0-7.6.3a2.9 2.9 0 00-2 2C2 8.8 2 12 2 12s0 3.2.4 4.7a2.9 2.9 0 002 2C6.1 19 12 19 12 19s5.9 0 7.6-.3a2.9 2.9 0 002-2C22 15.2 22 12 22 12zM10 15V9l5.2 3-5.2 3z"/></svg>
+        </span><span>유튜브</span>
+      </a>
+      <a href="https://www.facebook.com/hana2pj" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-fb">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M14 9h3V6h-3c-1.93 0-3.5 1.57-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.5c0-.28.22-.5.5-.5z"/></svg>
+        </span><span>페이스북</span>
+      </a>
+      <a href="https://stores.auction.co.kr/hana2pj" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-auction">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M20.6 7.3L16.7 3.4a2 2 0 00-2.8 0L4 13.3V20h6.7l9.9-9.9a2 2 0 000-2.8zM7 18H6v-1l7.9-7.9 1 1L7 18zM16.6 8.3l-1-1L18 4.9l1 1-2.4 2.4zM4 21h16v1.5H4z"/></svg>
+        </span><span>옥션</span>
+      </a>
+      <a href="https://shop.11st.co.kr/stores/535769" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-11st">11</span><span>11번가</span>
+      </a>
+      <a href="https://shop.coupang.com/vidv1/A00209780?source=brandstore_v1_fallback&platform=p" target="_blank" rel="noopener" class="link-chip">
+        <span class="link-ico ico-coupang">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2L3 7v3c0 5.2 3.6 9.8 9 11 5.4-1.2 9-5.8 9-11V7l-9-5zm0 4.8L18 10v.2c0 4-2.6 7.4-6 8.6-3.4-1.2-6-4.6-6-8.6V10l6-3.2z"/></svg>
+        </span><span>쿠팡</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="sec-head" style="margin-bottom:20px;">
+        <div class="eyebrow">업체소개</div>
+        <h2>빔프로젝터 판매부터<br>설치까지 한번에</h2>
+      </div>
+      <p style="color:var(--text-dim); font-size:15px;">
+        신품, 미개봉, 중고 빔프로젝터 판매·매입은 물론 엣지블랜딩, 맵핑 시공, 수리, 설치까지
+        전문적으로 상담해 드립니다.
+      </p>
+    </div>
+    <div class="about-card">
+      <ul>
+        <li><span>상호</span><span>하나투빔프로젝터</span></li>
+        <li><span>대표</span><span>장영진</span></li>
+        <li><span>주소</span><span>경기도 수원시 권선구 구운로 80-1</span></li>
+        <li><span>사업자등록번호</span><span>773-41-00402</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="products-teaser" style="border-bottom:1px solid var(--line); padding:56px 0;">
+  <div class="wrap" style="background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:36px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div>
+      <div class="sec-head" style="margin-bottom:0;">
+        <div class="eyebrow">판매제품</div>
+        <h2 style="margin-top:6px;">신품 · 미개봉 · 중고 목록 전체 보기</h2>
+      </div>
+    </div>
+    <a href="products.html" class="btn btn-primary">상품 목록으로 이동 →</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">문의하기</div>
+      <h2>궁금한 점을 남겨주세요</h2>
+      <p>아래 구글폼으로 문의를 남기시면 확인 후 순서대로 연락드립니다. 급하실 땐 전화나 문자도 편하게 주세요.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-box">
+        <h3>빠른 연락</h3>
+        <p>버튼을 누르면 바로 연결됩니다.</p>
+        <div class="quick-row">
+          <a href="tel:010-5530-6678">📞 전화</a>
+          <a href="sms:010-5530-6678">💬 문자</a>
+          <a href="#" id="kakaoLink">🟡 카카오톡</a>
+        </div>
+
+        <div class="copy-field" id="copyPhone">
+          <div>
+            <div class="label">전화번호 (클릭 시 복사)</div>
+            <div class="value">010-5530-6678</div>
+          </div>
+          <div class="icon">복사</div>
+        </div>
+      </div>
+
+      <div class="contact-box">
+        <h3>문의 접수 (구글폼)</h3>
+        <p>제품 상태, 가격, 거래 방식 등 원하시는 내용을 자유롭게 남겨주세요.</p>
+        <div class="form-embed">
+          여기에 구글폼 링크를 연결하세요<br>
+          <span style="font-size:12px;">(Google Forms → 보내기 → 링크 복사 → 아래 버튼 href 수정)</span>
+          <a href="#" class="btn btn-primary" id="formLink" target="_blank" rel="noopener">구글폼으로 문의하기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">오시는길</div>
+      <h2>직거래 및 방문 안내</h2>
+    </div>
+    <div class="map-box">
+      <div class="info">
+        <div><span>주소</span>경기도 수원시 권선구 구운로 80-1 (구운동 471-11)</div>
+        <div><span>거래방식</span>방문 상담 또는 택배거래</div>
+        <div><span>사업자등록번호</span>773-41-00402</div>
+      </div>
+      <a href="#" class="btn btn-ghost" id="mapLink" target="_blank" rel="noopener">지도에서 보기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>하나투빔프로젝터</strong> · 대표 장영진 · 전화 010-5530-6678<br>
+    경기도 수원시 권선구 구운로 80-1 · 사업자등록번호 773-41-00402<br>
+    Copyright ⓒ 하나투빔프로젝터. All rights reserved.
+  </div>
+</footer>
+
+<div id="toast">복사가 되었습니다</div>
+
+<script>
+  // 모바일 메뉴
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('navlinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.navlinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open'));
+  });
+
+  // ===== 상품 관리는 products.html에서 처리합니다 =====
+
+  // 토스트
+  function showToast(msg){
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  // 전화번호 클릭 복사
+  document.getElementById('copyPhone').addEventListener('click', () => {
+    const phone = document.querySelector('#copyPhone .value').textContent.trim();
+    navigator.clipboard.writeText(phone).then(() => showToast('복사가 되었습니다'));
+  });
+
+  // ===== 아래 3개는 실제 링크로 꼭 교체하세요 =====
+  document.getElementById('kakaoLink').href = '#'; // 카카오톡 채널 URL로 교체
+  document.getElementById('formLink').href = '#';  // 구글폼 URL로 교체
+  document.getElementById('mapLink').href = '#';   // 네이버지도/카카오맵 URL로 교체
+</script>
+
+</body>
+</html>
