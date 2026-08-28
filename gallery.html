@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>판매제품 | 하나투빔프로젝터</title>
-<meta name="description" content="신품, 미개봉, 중고빔프로젝터 판매 목록">
+<title>설치갤러리 | 하나투빔프로젝터</title>
+<meta name="description" content="빔프로젝터 설치 사례 갤러리">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -27,7 +27,7 @@
     color:var(--text);
     font-family:'Noto Sans KR', sans-serif;
     line-height:1.6;
-    overflow:hidden; /* 페이지 자체는 스크롤 안 됨, 상품 영역만 스크롤 */
+    overflow:hidden; /* 페이지 자체는 스크롤 안 됨, 갤러리 영역만 스크롤 */
   }
   h1,h2,h3,.brand{font-family:'Black Han Sans', sans-serif; letter-spacing:.5px;}
   a{color:inherit; text-decoration:none;}
@@ -87,17 +87,17 @@
     background:var(--gold); color:#1a1024; border-color:var(--gold);
   }
 
-  /* SCROLL AREA - 상품 목록만 여기서 스크롤 */
+  /* SCROLL AREA - 갤러리만 여기서 스크롤 */
   .scroll-area{
     flex:1 1 auto;
     overflow-y:auto;
     padding:28px 0 60px;
   }
 
-  .product-grid{display:grid; grid-template-columns:1fr; gap:22px; max-width:640px; margin:0 auto;}
+  .gallery-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
   .card{
     background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    overflow:hidden; transition:border-color .2s, transform .2s;
+    overflow:hidden; transition:border-color .2s, transform .2s; cursor:pointer;
   }
   .card:hover{border-color:var(--purple-accent); transform:translateY(-4px);}
   .card-img{
@@ -105,21 +105,34 @@
     display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:13px;
     border-bottom:1px solid var(--line);
   }
-  .card-body{padding:18px;}
+  .card-body{padding:16px;}
   .card-tag{
     display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px;
-    background:rgba(255,216,115,.12); color:var(--gold); margin-bottom:10px;
+    background:rgba(255,216,115,.12); color:var(--gold); margin-bottom:8px;
   }
-  .card-body h3{font-size:17px; font-family:'Noto Sans KR', sans-serif; font-weight:700; margin-bottom:6px;}
-  .card-body .price{color:var(--gold); font-weight:900; font-size:19px; margin:8px 0 12px;}
-  .card-body .spec{color:var(--text-dim); font-size:13px; margin-bottom:2px;}
-  .card-body .buy{
-    display:block; text-align:center; margin-top:14px; padding:10px; border-radius:8px;
-    border:1px solid var(--line); color:var(--text); font-size:14px; font-weight:700;
+  .card-body h3{font-size:16px; font-family:'Noto Sans KR', sans-serif; font-weight:700; margin-bottom:6px;}
+  .card-body .desc{color:var(--text-dim); font-size:13px;}
+  .blog-link{
+    display:block; text-align:center; margin-top:12px; padding:9px; border-radius:8px;
+    border:1px solid #03c75a; color:#03c75a; font-size:13px; font-weight:700;
   }
-  .card-body .buy:hover{border-color:var(--gold); color:var(--gold);}
+  .blog-link:hover{background:#03c75a; color:#0d1a10;}
 
-  /* 하단 고정 메인으로 버튼 (모바일 등 편의용) */
+  /* 라이트박스 (사진 확대) */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(10,6,16,.92); z-index:80;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw; max-height:80vh; border-radius:10px; border:1px solid var(--line);}
+  .lightbox .caption{color:var(--text); text-align:center; margin-top:14px; font-size:14px;}
+  .lightbox .close-btn{
+    position:absolute; top:20px; right:24px; background:var(--surface); border:1px solid var(--line);
+    color:var(--text); width:38px; height:38px; border-radius:50%; font-size:18px; cursor:pointer;
+  }
+  .lightbox .close-btn:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* 하단 고정 메인으로 버튼 */
   .float-home{
     position:fixed; bottom:22px; right:22px; z-index:60;
     background:var(--gold); color:#1a1024; font-weight:700; font-size:13px;
@@ -128,11 +141,11 @@
   .float-home:hover{opacity:.9;}
 
   @media (max-width: 860px){
-    .product-grid{grid-template-columns:repeat(2, 1fr);}
+    .gallery-grid{grid-template-columns:repeat(2, 1fr);}
     .navlinks a:not(.home-btn):not(.cta):not(.store-btn){display:none;}
   }
   @media (max-width: 520px){
-    .product-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr;}
     .page-head h1{font-size:20px;}
     .page-head{padding:20px 0 16px;}
   }
@@ -146,8 +159,7 @@
       <a href="index.html" class="brand">하나투<span>빔프로젝터</span></a>
       <div class="navlinks">
         <a href="index.html#about">업체소개</a>
-        <a href="index.html#location">오시는길</a>
-        <a href="gallery.html">설치갤러리</a>
+        <a href="products.html">판매제품</a>
         <a href="https://smartstore.naver.com/hana2" target="_blank" rel="noopener" class="store-btn">🛒 스마트스토어</a>
         <a href="index.html" class="home-btn">🏠 메인으로</a>
         <a href="index.html#contact" class="cta">문의하기</a>
@@ -156,20 +168,20 @@
   </header>
 
   <div class="page-head wrap">
-    <div class="eyebrow">판매제품</div>
-    <h1>신품 · 미개봉 · 중고 빔프로젝터</h1>
+    <div class="eyebrow">설치갤러리</div>
+    <h1>빔프로젝터 설치 사례</h1>
     <div class="filter-tabs">
       <button class="active" data-filter="all">전체</button>
-      <button data-filter="신품">신품</button>
-      <button data-filter="미개봉">미개봉</button>
-      <button data-filter="중고">중고</button>
+      <button data-filter="가정용">가정용</button>
+      <button data-filter="상업용">상업용</button>
+      <button data-filter="기타">기타</button>
     </div>
   </div>
 
   <main class="scroll-area">
     <div class="wrap">
-      <div class="product-grid" id="productGrid">
-        <p style="color:var(--text-dim); grid-column:1/-1;">상품 목록을 불러오는 중...</p>
+      <div class="gallery-grid" id="galleryGrid">
+        <p style="color:var(--text-dim); grid-column:1/-1;">설치사례를 불러오는 중...</p>
       </div>
     </div>
   </main>
@@ -177,9 +189,19 @@
 
 <a href="index.html" class="float-home">🏠 메인으로</a>
 
+<div class="lightbox" id="lightbox">
+  <button class="close-btn" id="lightboxClose">✕</button>
+  <div>
+    <img id="lightboxImg" src="" alt="">
+    <div class="caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
 <script>
-  // ===== 구글시트 CSV 링크 (index.html과 동일하게 유지하세요) =====
-  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrhvYUwjiy4k1IudLk6KL7FRrEFSyB5tQNHIcQjIKbvMpgk5qhujPgmWOkr9JGemOoyl2Dqy5PV4wd/pub?output=csv";
+  // ===== 설치갤러리용 구글시트 CSV 링크를 여기에 붙여넣으세요 =====
+  // 구글시트 > 파일 > 공유 > 웹에 게시 > CSV 선택 후 나온 링크
+  // 시트 열 순서: 카테고리, 제목, 설명, 사진URL
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShhqvaAF4pvMmv7kSZRAqCl6Dhg081u3MDZ2qOTt_AeqjCcmlnqJFhTzRXtfzHkwpmgZIdknLabYHH/pub?output=csv";
 
   function parseCSV(text){
     const rows = [];
@@ -202,40 +224,39 @@
     return rows.filter(r => r.length && r.some(v => v.trim() !== ''));
   }
 
-  function renderProducts(rows){
-    const grid = document.getElementById('productGrid');
+  function renderGallery(rows){
+    const grid = document.getElementById('galleryGrid');
     const items = rows.slice(1).filter(r => r[1] && r[1].trim());
     if (!items.length){
-      grid.innerHTML = '<p style="color:var(--text-dim); grid-column:1/-1;">등록된 상품이 없습니다. 구글시트에 상품을 추가해 주세요.</p>';
+      grid.innerHTML = '<p style="color:var(--text-dim); grid-column:1/-1;">등록된 설치사례가 없습니다. 구글시트에 추가해 주세요.</p>';
       return;
     }
-    grid.innerHTML = items.map(r => {
-      const [cat, name, price, spec1, spec2, img, storeUrl] = r.map(v => (v || '').trim());
+    grid.innerHTML = items.map((r, i) => {
+      const [cat, title, desc, img, blogUrl] = r.map(v => (v || '').trim());
       const imgHtml = img
-        ? `<img src="${img}" alt="${name}" style="width:100%; height:100%; object-fit:cover;">`
-        : '제품 사진 준비중';
-      const buyHtml = storeUrl
-        ? `<a href="${storeUrl}" target="_blank" rel="noopener" class="buy" style="border-color:#03c75a; color:#03c75a;">🛒 구매하기</a>`
-        : `<a href="index.html#contact" class="buy">문의하기</a>`;
+        ? `<img src="${img}" alt="${title}" style="width:100%; height:100%; object-fit:cover;">`
+        : '사진 준비중';
+      const blogHtml = blogUrl
+        ? `<a href="${blogUrl}" target="_blank" rel="noopener" class="blog-link">📝 설치보러가기</a>`
+        : '';
       return `
-        <div class="card" data-cat="${cat}">
+        <div class="card" data-cat="${cat}" data-idx="${i}">
           <div class="card-img">${imgHtml}</div>
           <div class="card-body">
-            <span class="card-tag">${cat || '상품'}</span>
-            <h3>${name}</h3>
-            ${spec1 ? `<div class="spec">${spec1}</div>` : ''}
-            ${spec2 ? `<div class="spec">${spec2}</div>` : ''}
-            <div class="price">${price || '가격 문의'}</div>
-            ${buyHtml}
+            <span class="card-tag">${cat || '설치사례'}</span>
+            <h3>${title}</h3>
+            ${desc ? `<div class="desc">${desc}</div>` : ''}
+            ${blogHtml}
           </div>
         </div>`;
     }).join('');
     attachFilters();
+    attachLightbox(items);
   }
 
   function attachFilters(){
     const buttons = document.querySelectorAll('.filter-tabs button');
-    const cards = document.querySelectorAll('#productGrid .card');
+    const cards = document.querySelectorAll('#galleryGrid .card');
     buttons.forEach(btn => {
       btn.onclick = () => {
         buttons.forEach(b => b.classList.remove('active'));
@@ -249,16 +270,40 @@
     });
   }
 
+  function attachLightbox(items){
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbCaption = document.getElementById('lightboxCaption');
+    document.querySelectorAll('#galleryGrid .card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.blog-link')) return; // 링크 클릭 시 라이트박스 안 열림
+        const idx = card.dataset.idx;
+        const [cat, title, desc, img] = items[idx].map(v => (v || '').trim());
+        if (!img) return;
+        lbImg.src = img;
+        lbImg.alt = title;
+        lbCaption.textContent = title + (desc ? ' — ' + desc : '');
+        lightbox.classList.add('open');
+      });
+    });
+  }
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.remove('open');
+  });
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') e.currentTarget.classList.remove('open');
+  });
+
   if (SHEET_CSV_URL && !SHEET_CSV_URL.includes('여기에')){
     fetch(SHEET_CSV_URL)
       .then(res => res.text())
-      .then(text => renderProducts(parseCSV(text)))
+      .then(text => renderGallery(parseCSV(text)))
       .catch(() => {
-        document.getElementById('productGrid').innerHTML =
-          '<p style="color:var(--text-dim); grid-column:1/-1;">상품 목록을 불러오지 못했습니다. 구글시트 링크를 확인해 주세요.</p>';
+        document.getElementById('galleryGrid').innerHTML =
+          '<p style="color:var(--text-dim); grid-column:1/-1;">설치사례를 불러오지 못했습니다. 구글시트 링크를 확인해 주세요.</p>';
       });
   } else {
-    document.getElementById('productGrid').innerHTML =
+    document.getElementById('galleryGrid').innerHTML =
       '<p style="color:var(--text-dim); grid-column:1/-1;">구글시트 연결이 아직 설정되지 않았습니다.</p>';
   }
 </script>
