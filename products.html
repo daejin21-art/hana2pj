@@ -209,10 +209,13 @@
       return;
     }
     grid.innerHTML = items.map(r => {
-      const [cat, name, price, spec1, spec2, img] = r.map(v => (v || '').trim());
+      const [cat, name, price, spec1, spec2, img, storeUrl] = r.map(v => (v || '').trim());
       const imgHtml = img
         ? `<img src="${img}" alt="${name}" style="width:100%; height:100%; object-fit:cover;">`
         : '제품 사진 준비중';
+      const buyHtml = storeUrl
+        ? `<a href="${storeUrl}" target="_blank" rel="noopener" class="buy" style="border-color:#03c75a; color:#03c75a;">🛒 구매하기</a>`
+        : `<a href="index.html#contact" class="buy">문의하기</a>`;
       return `
         <div class="card" data-cat="${cat}">
           <div class="card-img">${imgHtml}</div>
@@ -222,7 +225,7 @@
             ${spec1 ? `<div class="spec">${spec1}</div>` : ''}
             ${spec2 ? `<div class="spec">${spec2}</div>` : ''}
             <div class="price">${price || '가격 문의'}</div>
-            <a href="index.html#contact" class="buy">문의하기</a>
+            ${buyHtml}
           </div>
         </div>`;
     }).join('');
